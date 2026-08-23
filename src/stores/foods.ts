@@ -23,7 +23,7 @@ export const useFoodsStore = defineStore( "foods", () => {
     {
       mergeDefaults: true,
       serializer: {
-        read: v => !v ? null : JSON.parse( v ).map( ( f: Food ) => Object.assign( f, { lastEaten: new Date( f.lastEaten ) } )),
+        read: v => !v ? null : JSON.parse( v ).map( ( f: Food ) => Object.assign( f, { lastEaten: new Date( f.lastEaten ) } ) ),
         write: v => JSON.stringify( v )
       }
     }
@@ -32,11 +32,13 @@ export const useFoodsStore = defineStore( "foods", () => {
   const sorted = useSorted( foods, ( a, b ) => a.name.localeCompare( b.name ) )
   const filtered = computed( () => sorted.value.filter( f => f.type & filters.value.reduce( ( total, value ) => total += value, 0 ) ) )
 
-  function add ( name: string, type: FoodType ) {
+  function add ( name: string, type: FoodType, lastEaten: Date | string = new Date( 0 ) ) {
+    if ( typeof lastEaten === "string" ) lastEaten = new Date( lastEaten )
+
     if ( foods.value.find( f => f.name === name ) ) {
       remove( name )
     } else {
-      foods.value.push( { lastEaten: new Date( 0 ), name, type } )
+      foods.value.push( { lastEaten, name, type } )
     }
   }
   function remove ( name: string ) {
@@ -50,7 +52,6 @@ export const useFoodsStore = defineStore( "foods", () => {
     return foods.value.map( f => f.name ).includes( name )
   }
   function eat ( name: string ) {
-    console.log( "Attempting to eat", name )
     const food = get( name )
     if ( food ) food.lastEaten = new Date()
   }
