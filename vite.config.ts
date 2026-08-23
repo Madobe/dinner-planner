@@ -9,7 +9,7 @@ import { BootstrapVueNextResolver } from 'bootstrap-vue-next/resolvers'
 
 // https://vite.dev/config/
 export default defineConfig( {
-  base: process.env.NODE_ENV === "production" ? "/hobodrip/" : "./",
+  base: process.env.NODE_ENV === "production" ? "/dinner-planner/" : "./",
   plugins: [
     vue(),
     vueJsx(),
