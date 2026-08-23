@@ -1,11 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { BApp } from 'bootstrap-vue-next';
+import { RouterView } from 'vue-router';
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <BApp>
+    <RouterView />
+  </BApp>
 </template>
 
-<style scoped></style>
+<style scoped>
+.bg-full {
+  background-color: #292929;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+</style>
