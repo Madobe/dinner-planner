@@ -33,6 +33,14 @@ function resolveButtonVariant ( lastEaten: Date ) {
   else return "primary"
 }
 
+function resolveScheduleIcon ( name: string ) {
+  const foodType = foodsStore.foods.find( f => f.name === name )?.type || 0
+
+  if ( foodType === FoodType.Home ) return "bi-house-fill"
+  else if ( foodType === FoodType.Restaurant ) return "bi-shop"
+  else return "bi-question-circle"
+}
+
 function onClickFoodButton ( name: string ) {
   scheduleStore.add( name )
 }
@@ -130,6 +138,7 @@ function onSubmit ( event: Event | undefined ) {
           <BButton :class="[ 'btn-block', scheduleStore.schedule.length >= 2 ? 'mb-2' : '' ]"
             :variant='i === 0 ? "primary" : "secondary"' v-for=" ( entry, i ) in scheduleStore.schedule "
             @click="scheduleStore.remove( i )">
+            <i :class="[ 'bi', 'me-1', resolveScheduleIcon( entry ) ]"></i>
             {{ entry }}
           </BButton>
           <h4 class="text-center" v-if=" !scheduleStore.schedule.length ">Empty</h4>
