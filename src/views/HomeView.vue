@@ -90,7 +90,7 @@ function onSubmit ( event: Event | undefined ) {
               :options="foodTypes" buttons />
           </div>
           <div class="col-1">
-            <BButton class="w-100" variant="primary" @click="onSubmit">Add</BButton>
+            <BButton class="btn-block" variant="primary" @click="onSubmit">Add</BButton>
           </div>
         </BForm>
       </BCol>
@@ -104,6 +104,8 @@ function onSubmit ( event: Event | undefined ) {
           <BButton class="me-2 mb-2" v-for=" food in foodsStore.filtered "
             :variant="resolveButtonVariant( food.lastEaten )" v-b-tooltip="formatTimeAgo( food.lastEaten )"
             @click="onClickFoodButton( food.name )">
+            <i class="bi bi-house-fill me-1" v-if=" food.type === FoodType.Home "></i>
+            <i class="bi bi-shop me-1" v-if=" food.type === FoodType.Restaurant "></i>
             {{ food.name }}
           </BButton>
         </div>
@@ -112,27 +114,28 @@ function onSubmit ( event: Event | undefined ) {
 
 
       <BCol cols="2">
-        <div class="darkened rounded p-3 mb-3">
+        <div class="d-grid gap-1 darkened rounded p-3 mb-3">
           <h3 class="text-center">Filters</h3>
-          <BFormCheckboxGroup class="w-100" v-model="foodsStore.filters" :options="filtersOptions" stacked buttons
+          <BFormCheckboxGroup v-model="foodsStore.filters" :options="filtersOptions" stacked buttons
             button-variant="outline-secondary" />
-          <BButton class="w-100 mt-2" v-b-modal.random-selection-modal @click="onRandomize">Pick Random Filtered
-          </BButton>
+          <BButton class="mt-2" v-b-modal.random-selection-modal @click="onRandomize">Pick Random Filtered</BButton>
           <hr />
         </div>
-        <div class="darkened rounded p-3 mb-3">
+        <div class="d-grid gap-1 darkened rounded p-3 mb-3">
           <h3 class="text-center">Schedule</h3>
-          <BButton class="w-100" variant="primary" @click="foodsStore.eat( scheduleStore.shift() )">Advance</BButton>
+          <BButton variant="primary" class="btn-outlined-white" @click="foodsStore.eat( scheduleStore.shift() )">
+            Advance
+          </BButton>
           <hr />
-          <BButton :class="[ 'w-100', scheduleStore.schedule.length >= 2 ? 'mb-2' : '' ]"
+          <BButton :class="[ 'btn-block', scheduleStore.schedule.length >= 2 ? 'mb-2' : '' ]"
             :variant='i === 0 ? "primary" : "secondary"' v-for=" ( entry, i ) in scheduleStore.schedule "
             @click="scheduleStore.remove( i )">
             {{ entry }}
           </BButton>
-          <h3 class="text-center" v-if=" !scheduleStore.schedule.length ">Nothing<br />Planned</h3>
+          <h4 class="text-center" v-if=" !scheduleStore.schedule.length ">Empty</h4>
         </div>
 
-        <div class="darkened rounded p-3">
+        <div class="d-grid gap-1 darkened rounded p-3">
           <h3 class="text-center">Legend</h3>
           <hr />
           <BButton class="w-100 mb-2" variant="danger">&gt; 14 days</BButton>
@@ -169,6 +172,14 @@ function onSubmit ( event: Event | undefined ) {
 </template>
 
 <style scoped>
+.btn-outlined-white {
+  box-shadow:
+    -1px -1px #fff,
+    1px -1px #fff,
+    -1px 1px #fff,
+    1px 1px #fff;
+}
+
 .container-fluid {
   min-height: 100vh;
   padding-top: 1.5rem;

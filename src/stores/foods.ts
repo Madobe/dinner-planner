@@ -1,6 +1,6 @@
 import { useSorted, useStorage, type RemovableRef } from "@vueuse/core";
 import { defineStore } from "pinia";
-import { computed, reactive, ref, watch } from "vue";
+import { computed, ref } from "vue";
 
 export enum FoodType {
   Home = 1,
