@@ -7,6 +7,7 @@ import { formatTimeAgo } from '@vueuse/core';
 
 import { type Food, FoodType, useFoodsStore } from '@/stores/foods';
 import { useScheduleStore } from '@/stores/schedule';
+import { VueDraggable } from 'vue-draggable-plus';
 
 const foodsStore = useFoodsStore()
 const scheduleStore = useScheduleStore()
@@ -135,12 +136,14 @@ function onSubmit ( event: Event | undefined ) {
             Advance
           </BButton>
           <hr />
-          <BButton :class="[ 'btn-block', scheduleStore.schedule.length >= 2 ? 'mb-2' : '' ]"
-            :variant='i === 0 ? "primary" : "secondary"' v-for=" ( entry, i ) in scheduleStore.schedule "
-            @click="scheduleStore.remove( i )">
-            <i :class="[ 'bi', 'me-1', resolveScheduleIcon( entry ) ]"></i>
-            {{ entry }}
-          </BButton>
+          <VueDraggable class="d-grid gap-1" v-model="scheduleStore.schedule">
+            <BButton :class="[ 'btn-block', scheduleStore.schedule.length >= 2 ? 'mb-2' : '' ]"
+              :variant='i === 0 ? "primary" : "secondary"' v-for=" ( entry, i ) in scheduleStore.schedule "
+              @click="scheduleStore.remove( i )">
+              <i :class="[ 'bi', 'me-1', resolveScheduleIcon( entry ) ]"></i>
+              {{ entry }}
+            </BButton>
+          </VueDraggable>
           <h4 class="text-center" v-if=" !scheduleStore.schedule.length ">Empty</h4>
         </div>
 

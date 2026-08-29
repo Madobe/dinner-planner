@@ -8,6 +8,10 @@ export const useScheduleStore = defineStore( "schedule", () => {
   function add ( name: string ) {
     schedule.value.push( name )
   }
+  function move ( a: number, b: number ) {
+    const removed = schedule.value.splice( a, 1 )
+    schedule.value.splice( b, 0, ...removed )
+  }
   function shift () {
     return schedule.value.shift() || ""
   }
@@ -18,5 +22,5 @@ export const useScheduleStore = defineStore( "schedule", () => {
     return schedule.value.splice( i, 1 )
   }
 
-  return { schedule, add, shift, pop, remove }
-})
+  return { schedule, add, move, shift, pop, remove }
+} )
