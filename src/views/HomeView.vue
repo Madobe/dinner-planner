@@ -29,8 +29,8 @@ const randomModal = useTemplateRef<ComponentExposed<typeof BModal>>( "random-sel
 function resolveButtonVariant ( lastEaten: Date ) {
   const days = ( new Date().getTime() - lastEaten.getTime() ) / ( 1000 * 60 * 60 * 24 )
 
-  if ( days > 14 ) return "danger"
-  else if ( days < 14 && days > 7 ) return "warning"
+  if ( days >= 31 ) return "danger"
+  else if ( days >= 15 && days <= 30 ) return "warning"
   else return "primary"
 }
 
@@ -150,9 +150,9 @@ function onSubmit ( event: Event | undefined ) {
         <div class="d-grid gap-1 darkened rounded p-3">
           <h3 class="text-center">Legend</h3>
           <hr />
-          <BButton class="w-100 mb-2" variant="danger">&gt; 14 days</BButton>
-          <BButton class="w-100 mb-2" variant="warning">7 ~ 13 days</BButton>
-          <BButton class="w-100" variant="primary">&lt; 7 days</BButton>
+          <BButton class="w-100 mb-2" variant="danger">&gt; 31+ days</BButton>
+          <BButton class="w-100 mb-2" variant="warning">15 ~ 30 days</BButton>
+          <BButton class="w-100" variant="primary">&lt; 14 days</BButton>
         </div>
       </BCol>
     </BRow>
