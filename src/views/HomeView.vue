@@ -31,7 +31,7 @@ function resolveButtonVariant ( lastEaten: Date ) {
 
   if ( days >= 31 ) return "danger"
   else if ( days >= 15 && days <= 30 ) return "warning"
-  else return "primary"
+  else return "success"
 }
 
 function resolveScheduleIcon ( name: string ) {
@@ -152,7 +152,7 @@ function onSubmit ( event: Event | undefined ) {
           <hr />
           <BButton class="w-100 mb-2" variant="danger">&gt; 31+ days</BButton>
           <BButton class="w-100 mb-2" variant="warning">15 ~ 30 days</BButton>
-          <BButton class="w-100" variant="primary">&lt; 14 days</BButton>
+          <BButton class="w-100" variant="success">&lt; 14 days</BButton>
         </div>
       </BCol>
     </BRow>
