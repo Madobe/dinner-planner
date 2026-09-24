@@ -8,7 +8,7 @@
     "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "NODE_ENV=production run-p type-check \"build-only {@}\" --",
-    "postbuild": "git diff --quiet && git checkout -B regular-site && git add -f dist/* && git commit -m \"Update site\" && git checkout @{-1}",
+    "postbuild": "git diff --quiet && git checkout -B regular-site && git add -f dist/* && git commit -m \"Update site\" && git push origin regular-site && git checkout @{-1}",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
